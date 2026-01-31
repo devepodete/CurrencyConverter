@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Text Selection Logger",
+  "version": "1.0",
+  "description": "Logs selected text to the console",
+  "permissions": ["activeTab"],
+  "background": {
+    "scripts": ["currencies.js", "background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["currencies.js", "content.js"]
+    }
+  ]
+}
