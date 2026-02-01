@@ -59,7 +59,9 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
         return Promise.resolve(null);
     }
 
-    const targetCurrency = 'RUB';
+    const { targetCurrency } = await browser.storage.local.get("targetCurrency");
+    console.log("Using target currency:", targetCurrency);
+
     const convertedAmount = convertCurrency(money.currency, targetCurrency, money.amount);
     
     money.currency = targetCurrency;

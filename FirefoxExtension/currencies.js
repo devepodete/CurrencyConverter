@@ -1143,7 +1143,8 @@ function parseMoney(text) {
     };
 }
 
-// Export for use in other scripts
 if (typeof module !== "undefined") {
-    module.exports = {parseMoney}; // Node-style (for testing)
+    module.exports = { currencyMap, parseMoney };
 }
+
+//export { currencyMap, parseMoney };

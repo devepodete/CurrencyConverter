@@ -1,4 +1,4 @@
-const {parseMoney} = require("./currencies");
+const { currencyMap, parseMoney } = require("./currencies");
 
 test("parse", () => {
     expect(parseMoney("123$")).toEqual({amount: 123, currency: "USD"});

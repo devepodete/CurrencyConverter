@@ -11,11 +11,10 @@ document.addEventListener("mouseup", async () => {
     return;
   }
 
-  showPopup(selection, result);
+  await showPopup(selection, result);
 });
 
-function showPopup(selection, result) {
-  // Remove old popup
+async function showPopup(selection, result) {
   const old = document.getElementById("currency-popup");
   if (old) old.remove();
 
@@ -24,24 +23,36 @@ function showPopup(selection, result) {
 
   const popup = document.createElement("div");
   popup.id = "currency-popup";
-  popup.textContent = "$";
+
+  if (result.currency in currencyMap) {
+    popup.textContent = currencyMap[result.currency];
+  } else {
+    popup.textContent = "$";
+  }
+
   popup.style.position = "absolute";
   popup.style.left = `${rect.right + window.scrollX}px`;
   popup.style.top = `${rect.top - rect.height + window.scrollY}px`;
-  popup.style.width = "20px";
-  popup.style.height = "20px";
+  popup.style.width = "auto";
+  popup.style.height = "auto";
+  popup.style.padding = "0px 8px";
   popup.style.background = "#ffd700";
   popup.style.color = "#000";
   popup.style.textAlign = "center";
-  popup.style.cursor = "pointer";
   popup.style.zIndex = 9999;
 
-  popup.addEventListener("click", (event) => {
-    event.stopPropagation(); // prevent closing when clicking inside
-    popup.textContent = `${result.amount.toFixed(2)} ${result.currency}`;
-    popup.style.width = "auto";
-    popup.style.padding = "0px 4px";
-  });
+  const resultString = `${result.amount.toFixed(2)} ${result.currency}`;
+  const { fastShow } = await browser.storage.local.get("fastShow");
+
+  if (fastShow) {
+    popup.textContent = resultString;
+  } else {
+    popup.style.cursor = "pointer";
+    popup.addEventListener("click", (event) => {
+      event.stopPropagation(); // prevent closing when clicking inside
+      popup.textContent = resultString;
+    });
+  }
 
   document.body.appendChild(popup);
 
