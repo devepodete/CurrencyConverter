@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Currency Converter",
+  "name": "Currency Converter Mini",
   "version": "1.0",
-  "description": "Logs selected text to the console",
+  "description": "Select text and automatically convert it to a target currency",
   "permissions": ["activeTab", "storage"],
   "background": {
     "scripts": ["currencies.js", "background.js"]
@@ -13,8 +13,19 @@
       "js": ["currencies.js", "content.js"]
     }
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{9957f8fd-1c24-4dee-bae8-39dab844078f}",
+      "data_collection_permissions": {
+        "required": [
+          "websiteContent",
+          "websiteActivity"
+        ]
+      }
+    }
+  },
   "action": {
-    "default_title": "Currency Converter",
+    "default_title": "Currency Converter Mini",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
