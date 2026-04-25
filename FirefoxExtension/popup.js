@@ -1,8 +1,6 @@
 const select = document.getElementById("targetCurrency");
 const fastShowCheckbox = document.getElementById("fastShow");
 
-browser.storage.local.set({ targetCurrency: "USD" });
-
 // Save currency when changed
 select.addEventListener("change", () => {
   browser.storage.local.set({ targetCurrency: select.value });
