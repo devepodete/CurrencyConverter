@@ -7,6 +7,9 @@ function getPredefinedExchangeRates() {
 
 let exchangeRates = getPredefinedExchangeRates();
 
+// default currency, can be changed in popup.js
+browser.storage.local.set({ targetCurrency: "USD" });
+
 async function tryRefreshExchangeRates() {
     try {
         const response = await fetch("https://open.er-api.com/v6/latest/EUR");
@@ -17,7 +20,6 @@ async function tryRefreshExchangeRates() {
         exchangeRates = rates;
     } catch (error) {
         console.error("Fetch failed:", error);
-
     }
 }
 

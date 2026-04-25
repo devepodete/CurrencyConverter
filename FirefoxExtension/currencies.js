@@ -1090,8 +1090,17 @@ function tryExtractCurrency(text) {
     const normalized = text.trim().toUpperCase();
 
     for (const [alpha, symbol] of Object.entries(currencyMap)) {
-        if (normalized.includes(symbol) || normalized.includes(alpha)) {
+        // $, process english words below
+        if (!/^[a-zA-Z]+$/.test(symbol) && normalized.includes(symbol)) {
             return alpha;
+        }
+
+        // USD
+        const allWords = normalized.match(/\w+/g);
+        for (const word of allWords) {
+            if (word == alpha) {
+                return alpha;
+            }
         }
     }
 
